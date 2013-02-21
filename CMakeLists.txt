@@ -6,19 +6,6 @@ INCLUDE_DIRECTORIES(BEFORE ${CMAKE_BINARY_DIR}/include)
 LINK_DIRECTORIES(${CMAKE_BINARY_DIR}/lib)
 
 EXTERNALPROJECT_ADD(
-  z
-  URL http://zlib.net/zlib-1.2.7.tar.gz
-  CONFIGURE_COMMAND ./configure --prefix=${CMAKE_BINARY_DIR} --static
-  BUILD_IN_SOURCE 1
-)
-EXTERNALPROJECT_ADD(
-  openssl
-  URL http://www.openssl.org/source/openssl-1.0.1c.tar.gz
-  CONFIGURE_COMMAND ./config no-shared no-idea no-mdc2 no-rc5 --prefix=${CMAKE_BINARY_DIR}
-  BUILD_COMMAND make depend && make
-  BUILD_IN_SOURCE 1
-)
-EXTERNALPROJECT_ADD(
   opencore
   URL http://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.3.tar.gz
   CONFIGURE_COMMAND ./configure --prefix=${CMAKE_BINARY_DIR} --disable-shared
@@ -92,7 +79,6 @@ EXTERNALPROJECT_ADD(
 )
 EXTERNALPROJECT_ADD(
   rtmp
-  DEPENDS z openssl
   GIT_REPOSITORY git://git.ffmpeg.org/rtmpdump
   PATCH_COMMAND patch -p1 < ${CMAKE_SOURCE_DIR}/vendor/rtmpdump-2.4-prefix.patch
   CONFIGURE_COMMAND ""
